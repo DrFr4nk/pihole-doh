@@ -1,6 +1,9 @@
 # Docker pihole-doh
 Official Pi-hole docker image along with DoH (DNS over HTTPS) powered by Cloudflare.
 
+**THIS WILL WORK ONLY ON ARM 64bit IMAGES**
+For 32bit see the original work of [eltonk](https://github.com/eltonk/pihole-doh)
+
 <p align="center">
 <a href="https://pi-hole.net"><img src="https://pi-hole.github.io/graphics/Vortex/Vortex_with_text.png" width="150" height="255" alt="Pi-hole"></a><br/>
 </p>
@@ -18,7 +21,7 @@ You have some options how to start the docker container.
 ### In you Raspberry Pi console, you can run the following Docker command:
 ```shell
 docker run -d --name='Pihole-DoH' \
--e TZ="Europe/Berlin" \
+-e TZ="Europe/Rome" \
 -e 'PIHOLE_DNS_'='127.0.0.1#5053' \
 -e 'WEBPASSWORD'='password123' \
 -p '53:53/tcp' \
@@ -29,7 +32,7 @@ docker run -d --name='Pihole-DoH' \
 -v './etc-dnsmasq.d/':'/etc/pihole/':'rw' \
 -v './etc-dnsmasq.d/':'/etc/dnsmasq.d/':'rw' \
 --restart=unless-stopped \
-'eltonk/pihole-doh:latest-arm'
+'drfr4nk/pihole-doh-arm64:latest'
 ```
 
 ### You also can use a docker-compose style
@@ -42,7 +45,7 @@ version: "3"
 services:
   pihole-dot-doh:
     container_name: pihole-doh
-    image: eltonk/pihole-doh:latest-arm
+    image: drfr4nk/pihole-doh-arm64:latest
     ports:
       - "53:53/tcp"
       - "53:53/udp"
@@ -53,7 +56,7 @@ services:
       # This activates the DoH feature. If you comment on this, the Pi-hole will only act as blocking ads.
       PIHOLE_DNS_: '127.0.0.1#5053'
       # Set your timezone
-      TZ: 'Europe/Berlin'
+      TZ: 'Europe/Rome'
       WEBPASSWORD: 'password123' #change your password, otherwise the default password is 'password123'
     # Volumes store your data between container upgrades
     volumes:
