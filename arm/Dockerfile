@@ -1,14 +1,17 @@
+# Derived from the work of Elton Kuzniewski
+# https://github.com/eltonk/pihole-doh
+
 FROM pihole/pihole:latest
 
-LABEL maintainer="Elton Kuzniewski"
-LABEL url="https://github.com/eltonk/pihole-doh"
+LABEL maintainer="Francesco Loprete"
+LABEL url="https://github.com/DrFr4nk/pihole-doh"
 
 # Install and configure cloudflared
 RUN /bin/bash -c 'cd /tmp; \
 apt-get update; \
 apt-get install wget -y; \
-wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm; \
-mv ./cloudflared-linux-arm /usr/local/bin/cloudflared; \
+wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64; \
+mv ./cloudflared-linux-arm64 /usr/local/bin/cloudflared; \
 chmod +x /usr/local/bin/cloudflared;'
 
 COPY config.yml /etc/cloudflared/config.yml

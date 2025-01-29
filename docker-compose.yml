@@ -1,9 +1,7 @@
-version: "3"
-
 services:
   pihole-doh:
     container_name: pihole-doh
-    image: eltonk/pihole-doh:latest
+    image: drfr4nk/pihole-doh-arm64:latest
     ports:
       - "53:53/tcp"
       - "53:53/udp"
@@ -14,7 +12,7 @@ services:
       # This activates the DoH feature. If you comment on this, the Pi-hole will only act as blocking ads.
       PIHOLE_DNS_: '127.0.0.1#5053'
       # Set your timezone
-      TZ: 'Europe/Berlin'
+      TZ: 'Europe/Rome'
       WEBPASSWORD: 'password123' #change the admin password, otherwise the default password is 'password123'
     # Volumes store your data between container upgrades
     volumes:
